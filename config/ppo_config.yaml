@@ -1,0 +1,23 @@
+# PPO Hyperparameters
+algorithm: PPO
+policy: MlpPolicy
+device: cpu
+
+# Training
+total_timesteps: 300000
+n_envs: 16
+
+# PPO specific
+learning_rate: 0.0003
+n_steps: 512
+batch_size: 64
+n_epochs: 10
+gamma: 0.99
+
+# Network
+net_arch: [64, 64]
+
+# Environment
+physics_hz: 200
+policy_hz: 50
+max_steps: 500

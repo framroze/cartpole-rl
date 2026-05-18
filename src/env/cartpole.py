@@ -1,5 +1,17 @@
 """
-MuJoCo CartPole Environment using Playground's exact XML.
+MuJoCo CartPole Gymnasium Environment.
+
+Observation (5,):
+    cart_position, cart_velocity,
+    cos(pole_angle), sin(pole_angle), pole_angular_velocity
+
+Action (1,):
+    Force on cart in [-1, 1]
+
+Reward:
+    +1.0 per step alive
+    -0.5 * cart_pos^2  (center penalty)
+    -10.0 on failure
 """
 import mujoco
 import numpy as np
@@ -11,7 +23,8 @@ from mujoco_playground._src.dm_control_suite import common
 XML_PATH = mjx_env.ROOT_PATH / "dm_control_suite" / "xmls" / "cartpole.xml"
 assets   = common.get_assets()
 
-class MujocoCartpoleEnv(gym.Env):
+
+class CartPoleEnv(gym.Env):
     metadata = {"render_modes": ["rgb_array"], "render_fps": 50}
 
     def __init__(self, render_mode=None):
@@ -19,7 +32,7 @@ class MujocoCartpoleEnv(gym.Env):
         self.model = mujoco.MjModel.from_xml_string(
             XML_PATH.read_text(), assets)
         self.model.opt.timestep = 0.005
-        self.data  = mujoco.MjData(self.model)
+        self.data      = mujoco.MjData(self.model)
         self.max_steps = 500
 
         self.action_space = spaces.Box(
@@ -46,10 +59,10 @@ class MujocoCartpoleEnv(gym.Env):
 
     def reset(self, seed=None, options=None):
         super().reset(seed=seed)
-        self.data.qpos[0] = self.np_random.uniform(-0.5, 0.5)
-        self.data.qpos[1] = self.np_random.uniform(-0.1, 0.1)
-        self.data.qvel[0] = self.np_random.uniform(-0.1, 0.1)
-        self.data.qvel[1] = self.np_random.uniform(-0.1, 0.1)
+        self.data.qpos[0] = self.np_random.uniform(-0.5,  0.5)
+        self.data.qpos[1] = self.np_random.uniform(-0.1,  0.1)
+        self.data.qvel[0] = self.np_random.uniform(-0.1,  0.1)
+        self.data.qvel[1] = self.np_random.uniform(-0.1,  0.1)
         self.data.ctrl[0] = 0.0
         mujoco.mj_forward(self.model, self.data)
         self.steps = 0
@@ -66,7 +79,8 @@ class MujocoCartpoleEnv(gym.Env):
         return self._get_obs(), reward, done, self.steps >= self.max_steps, {}
 
     def render(self):
-        if self.render_mode != "rgb_array": return None
+        if self.render_mode != "rgb_array":
+            return None
         if self._renderer is None:
             self._renderer = mujoco.Renderer(self.model, 480, 640)
         self._renderer.update_scene(self.data, camera="fixed")
@@ -76,8 +90,9 @@ class MujocoCartpoleEnv(gym.Env):
         if self._renderer is not None:
             self._renderer.close()
 
+
 gym.register(
     id="MujocoCartpole-v0",
-    entry_point="mujoco_cartpole_env:MujocoCartpoleEnv",
+    entry_point="src.env.cartpole:CartPoleEnv",
     max_episode_steps=500,
 )
