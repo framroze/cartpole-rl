@@ -93,6 +93,6 @@ class CartPoleEnv(gym.Env):
 
 gym.register(
     id="MujocoCartpole-v0",
-    entry_point="src.env.cartpole:CartPoleEnv",
+    entry_point="cartpole_env:CartPoleEnv",
     max_episode_steps=500,
 )

@@ -25,7 +25,7 @@ The trained agent controls a cart moving left and right on a track to keep a pol
 | Component | Used For |
 |-----------|----------|
 | **MuJoCo 3.8** | Physics simulation |
-| **PPO (Stable Baselines3)** | Reinforcement learning algorithm |
+| **PPO (Stable Baselines3)** | Reinforcement learning |
 | **Gymnasium** | Environment interface |
 | **DeepMind Control Suite** | Cartpole XML model |
 | **Python 3.11** | Implementation |
@@ -88,12 +88,12 @@ python main.py view
 
 | Path | Description |
 |------|-------------|
-| `main.py` | Entry point — train or view |
-| `requirements.txt` | Dependencies |
-| `config/ppo_config.yaml` | PPO hyperparameters |
-| `src/env/cartpole.py` | MuJoCo Gymnasium environment |
-| `src/training/train.py` | PPO training + evaluation |
-| `src/visualization/viewer.py` | MuJoCo real-time viewer |
+| 📄 [`main.py`](main.py) | Entry point — `python main.py train` or `python main.py view` |
+| 📄 [`requirements.txt`](requirements.txt) | Python dependencies |
+| 📄 [`config/ppo_config.yaml`](config/ppo_config.yaml) | PPO hyperparameters |
+| 📄 [`src/cartpole_env.py`](src/cartpole_env.py) | MuJoCo CartPole Gymnasium environment |
+| 📄 [`src/train.py`](src/train.py) | PPO training + evaluation |
+| 📄 [`src/viewer.py`](src/viewer.py) | MuJoCo real-time policy viewer |
 
 ---
 

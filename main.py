@@ -9,6 +9,7 @@ import os
 import sys
 
 os.environ['MUJOCO_GL'] = 'egl'
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 
 
 def main():
@@ -19,12 +20,12 @@ def main():
     command = sys.argv[1].lower()
 
     if command == "train":
-        from src.training.train import train, evaluate
+        from train import train, evaluate
         model = train()
         evaluate(model)
 
     elif command == "view":
-        from src.visualization.viewer import run
+        from viewer import run
         run()
 
     else:
