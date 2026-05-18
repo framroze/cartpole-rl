@@ -1,11 +1,14 @@
-# 🛒 CartPole RL — Pole Balancing with PPO
+# 🛒 CartPole RL — Pole Balancing with Reinforcement Learning
 
-[![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
-[![MuJoCo](https://img.shields.io/badge/MuJoCo-3.8-00B4D8?style=for-the-badge)](https://mujoco.org)
-[![Algorithm](https://img.shields.io/badge/PPO-Stable--Baselines3-orange?style=for-the-badge)](https://stable-baselines3.readthedocs.io)
-[![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
-
-**A reinforcement learning agent that learns to balance a pole on a moving cart using MuJoCo physics and PPO.**
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
+  <img src="https://img.shields.io/badge/MuJoCo-3.8-00B4D8?style=for-the-badge" alt="MuJoCo"/>
+  <img src="https://img.shields.io/badge/PPO-Stable--Baselines3-orange?style=for-the-badge" alt="PPO"/>
+  <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License"/>
+</p>
+<p align="center">
+  <b>A reinforcement learning agent that learns — entirely on its own through trial and error — to balance a pole on a moving cart using MuJoCo physics.</b>
+</p>
 
 ---
 
@@ -42,17 +45,24 @@ The trained agent controls a cart moving left and right on a track to keep a pol
 
 ## ⚙️ Installation
 
-### 1️⃣ Create environment
+### 1️⃣ Clone the repository
+
+```bash
+git clone https://github.com/framroze/cartpole-rl.git
+cd cartpole-rl
+```
+
+### 2️⃣ Create environment
 
 ```bash
 conda create -n dexterous python=3.11
 conda activate dexterous
 ```
 
-### 2️⃣ Install dependencies
+### 3️⃣ Install dependencies
 
 ```bash
-pip install -r requirements.txt
+pip install mujoco stable-baselines3 gymnasium mujoco-playground
 ```
 
 ---
@@ -62,13 +72,13 @@ pip install -r requirements.txt
 ### 🖥️ Train the policy
 
 ```bash
-python main.py train
+python src/main.py train
 ```
 
 ### 🖥️ View trained policy in MuJoCo viewer
 
 ```bash
-python main.py view
+python src/main.py view
 ```
 
 > Double-click the pole to grab and disturb it — watch the agent recover!
@@ -88,9 +98,8 @@ python main.py view
 
 | Path | Description |
 |------|-------------|
-| 📄 [`main.py`](main.py) | Entry point — `python main.py train` or `python main.py view` |
-| 📄 [`requirements.txt`](requirements.txt) | Python dependencies |
-| 📄 [`config/ppo_config.yaml`](config/ppo_config.yaml) | PPO hyperparameters |
+| 📁 [`src/`](src/) | All source files — environment, training, and viewer |
+| 📄 [`src/main.py`](src/main.py) | Entry point — `python src/main.py train` or `python src/main.py view` |
 | 📄 [`src/cartpole_env.py`](src/cartpole_env.py) | MuJoCo CartPole Gymnasium environment |
 | 📄 [`src/train.py`](src/train.py) | PPO training + evaluation |
 | 📄 [`src/viewer.py`](src/viewer.py) | MuJoCo real-time policy viewer |
